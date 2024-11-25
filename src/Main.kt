@@ -19,4 +19,5 @@ private fun Anagrama (p1 : String, p2 : String):Boolean {
     }else if (return p1.lowercase().toCharArray().sortedArray().contentEquals( p2.lowercase().toCharArray().sortedArray())){
         println("true")
     }
+    // sin escepcion para palidromos
 }
