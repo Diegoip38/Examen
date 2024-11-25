@@ -3,16 +3,13 @@
 fun main() {
 
     for (i in 1..100){
-        println(i)
-        if(i%3 == 0){
-            println("tri")
-        }
-        if(i%5 == 0){
-            println("quin")
-        }
-        if(i%3 == 0 && i%5 == 0){
+        if(i%3 == 0 && i%5 == 0) {
             println("quintri")
-        }
+        }else if(i%3 == 0){
+            println("tri")
+        }else if(i%5 == 0){
+            println("quin")
+        }else println(i)
 
     }
 
