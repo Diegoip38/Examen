@@ -2,7 +2,14 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
 
-    println(balanceado("{3*([34*2]/7)}}"))
+    println("se encuentran balanceadas estas expresiones?")
+    println("{3*([34*2]/7)}: "+balanceado("{3*([34*2]/7)}"))
+    println("{a + b [c] * (2x2)}}}}: "+balanceado("{a + b [c] * (2x2)}}}}"))
+    println("{ [ a * ( c + d ) ] - 5 }: "+balanceado("{ [ a * ( c + d ) ] - 5 }"))
+    println("{a^4 + (ax4)}: "+balanceado("{a^4 + (ax4)}"))
+    println("{ ] a * ( c + d ) + ( 2 - 3 )[ - 5 }: "+balanceado("{ ] a * ( c + d ) + ( 2 - 3 )[ - 5 }"))
+    println("(a: "+balanceado("(a"))
+    println("{{{{{{(}}}}}}: "+balanceado("{{{{{{(}}}}}}"))
 
 }
 
