@@ -2,31 +2,36 @@
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
 
-    println("se encuentran balanceadas estas expresiones?")
-    println("{3*([34*2]/7)}: "+balanceado("{3*([34*2]/7)}"))
-    println("{a + b [c] * (2x2)}}}}: "+balanceado("{a + b [c] * (2x2)}}}}"))
-    println("{ [ a * ( c + d ) ] - 5 }: "+balanceado("{ [ a * ( c + d ) ] - 5 }"))
-    println("{a^4 + (ax4)}: "+balanceado("{a^4 + (ax4)}"))
-    println("{ ] a * ( c + d ) + ( 2 - 3 )[ - 5 }: "+balanceado("{ ] a * ( c + d ) + ( 2 - 3 )[ - 5 }"))
-    println("(a: "+balanceado("(a"))
-    println("{{{{{{(}}}}}}: "+balanceado("{{{{{{(}}}}}}"))
+    val a1 = arrayListOf<String>("correr","saltar","correr","saltar","correr")
+    val a2 = arrayListOf<String>("correr", "correr", "correr", "saltar", "correr")
+    val a3 = arrayListOf<String>("correr", "correr", "saltar", "saltar", "correr")
+    val a4 = arrayListOf<String>("correr", "correr", "saltar", "saltar", "correr")
+    val a5 = arrayListOf<String>("correr", "saltar", "correr", "saltar")
+    val a6 = arrayListOf<String>("correr", "saltar", "correr", "saltar", "correr", "saltar", "correr")
+    val a7 = arrayListOf<String>("saltar", "saltar", "saltar", "saltar", "saltar")
+    val a8 = arrayListOf<String>("saltar", "saltar", "saltar", "saltar", "saltar")
+
+
+    val c1:String = "_|_|_"
+
 
 }
 
+private fun Carrera(a:Array<String>,c:String){
 
-private fun balanceado(ex: String): Boolean {
-    val sim = mapOf('{' to '}', '[' to ']', '(' to ')')
-    var st = arrayListOf<Char>()
-    ex.forEach {
-        if (it in sim.values) {
-            if (st.isEmpty() || sim[st.last()] != it) {
-                return false
-            }
-            st.removeAt(st.lastIndex)
-        } else if (it in sim.keys) {
-            st.add(it)
-        }
+    for (i in a.indices){
+        if(a[i]=="correr" && c[i] == '_'){
+            print("_")
+        }else if(a[i]=="correr" && c[i] == '|'){
+            print("/")
+        }else if(a[i]=="saltar" && c[i] == '|'){
+            print("|")
+        }else if(a[i]=="saltar" && c[i] == '_'){
+            print("x")
+        }else print("?")
+
     }
-    return st.isEmpty()
 }
+
+
 
