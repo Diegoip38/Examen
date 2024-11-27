@@ -1,57 +1,86 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
+    val matriz1 = arrayOf(
+        arrayOf("X", "O", "X"),
+        arrayOf("O", "X", "X"),
+        arrayOf("O", "X", "O")
+    )
+    val matriz2 = arrayOf(
+        arrayOf("X", "O", "X"),
+        arrayOf("O", "X", "O"),
+        arrayOf("X", "O", "X")
+    )
+    val matriz3 = arrayOf(
+        arrayOf("X", "O", "X"),
+        arrayOf("O", "O", "O"),
+        arrayOf("X", "O", "X")
+    )
+    val matriz4 = arrayOf(
+        arrayOf("X", "O", "X","O"),
+        arrayOf("O", "O", "O","X"),
+        arrayOf("X", "O", "X","O")
+    )
+    val matriz5 = arrayOf(
+        arrayOf("", "", ""),
+        arrayOf("", "", ""),
+        arrayOf("", "", "")
+    )
 
-    val a1 = listOf("correr","saltar","correr","correr")
-    val a2 = listOf("correr","saltar","correr")
+    println(analizarMatriz(matriz1))
+    println(analizarMatriz(matriz2))
+    println(analizarMatriz(matriz3))
+    println(analizarMatriz(matriz4))
+    println(analizarMatriz(matriz5))
 
-    val c1 : String = "_|_"
-    val c2 : String = "_||"
-
-    println(Carrera(a1,c1))
-    println(Carrera(a2,c1))
-    println(Carrera(a2,c2))
 
 }
 
-private fun Carrera(a:List<String>,c:String):Boolean{
+fun analizarMatriz(matriz: Array<Array<String>>): String {
 
-
-
-    val cm = c.toMutableList()
-
-
-    for (i in a.indices){
-
-
-        when (a[i]){
-            "correr" ->{
-                if( cm[i] == '|'){
-                    cm[i]='/'
-                    print(cm)
-                    return false
-                }
-            }
-            "saltar"-> {
-                if (cm[i] == '_') {
-                    cm[i] = 'x'
-                    print(cm)
-                    return false
-                }
-            }
-        }
-        if  (a.size != c.length){
-            val min = minOf(a.size , c.length)
-            for (j in 0 until min){
-                cm.add('?')
-                print(cm)
-                return false
+    if (matriz.size != 3 || matriz[0].size != 3) {
+        return "Nulo"
+    }
+    var xC = 0
+    var oC = 0
+    for (i in matriz) {
+        for (j in i) {
+            if (j == "X") {
+                xC++
+            } else if (j == "O") {
+                oC++
             }
         }
     }
-    print(cm)
-    return true
+    if (xC == 0 || oC == 0) {
+        return "Nulo"
+    }
+    for (i in matriz) {
+        if (i[0] == i[1] && i[1] == i[2] && i[0] != "") {
+            return i[0]
+        }
+    }
+    for (x in 0 until 3) {
+        if (matriz[0][x] == matriz[1][x] && matriz[1][x] == matriz[2][x] && matriz[0][x] != "") {
+            return matriz[0][x]
+        }
+    }
+    if (matriz[0][0] == matriz[1][1] && matriz[1][1] == matriz[2][2] && matriz[0][0] != "") {
+        return matriz[0][0]
+    }
+    if (matriz[0][2] == matriz[1][1] && matriz[1][1] == matriz[2][0] && matriz[0][2] != "") {
+        return matriz[0][2]
+    }
+    for (i in matriz) {
+        for (j in i) {
+            if (j == "") {
+                return "Nulo"
+            }
+        }
+    }
+    return "Empate"
 }
+
 
 
 
