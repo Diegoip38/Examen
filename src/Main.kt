@@ -1,85 +1,134 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+class Contacto(
+    val tlf : String,
+    var nombre : String
+)
+
+class Listadecontactos {
+    private val lista = mutableListOf<Contacto>()
+
+    fun CrearContacto(contacto: Contacto): Boolean {
+        if (lista.size >= 10) {
+            println("La lista de contactos está llena. No se puede agregar más contactos.")
+            return false
+        }
+        if (lista.any { it.tlf == contacto.tlf }) {
+            println("el contacto con telefono ${contacto.tlf} ya existe.")
+            return false
+        }
+        lista.add(contacto)
+        println("el contacto con telefono ${contacto.tlf} agregado.")
+        return true
+    }
+
+    fun EliminarContacto(tlf: String): Boolean {
+        lista.removeIf { it.tlf == tlf }
+        println("Contacto con telefono $tlf eliminada.")
+        return true
+    }
+
+    fun ObtenerContactoPorNombre(nombre: String): Contacto? {
+        return lista.find { it.nombre == nombre }
+
+    }
+
+    fun ObtenerListaContactos(): List<Contacto> {
+        return lista
+
+    }
+
+    fun ObtenerContactoPorNombreOTelefono(nombre: String? = null, tlf: String? = null): Contacto? {
+        return lista.find { (it.nombre == nombre) || (it.tlf == tlf) }
+    }
+
+    fun EspacioRestante(){
+        if (lista.size >= 10) {
+            println("La lista de contactos está llena. No se puede agregar más contactos.")
+
+        }else println("todavia queda espacio")
+    }
+    fun EspacioRestanteNumero(){
+        if (lista.size >= 10) {
+            println("La lista de contactos está llena. No se puede agregar más contactos.")
+
+        }else println(10-lista.size)
+    }
+
+}
+
+
 fun main() {
-    val matriz1 = arrayOf(
-        arrayOf("X", "O", "X"),
-        arrayOf("O", "X", "X"),
-        arrayOf("O", "X", "O")
-    )
-    val matriz2 = arrayOf(
-        arrayOf("X", "O", "X"),
-        arrayOf("O", "X", "O"),
-        arrayOf("X", "O", "X")
-    )
-    val matriz3 = arrayOf(
-        arrayOf("X", "O", "X"),
-        arrayOf("O", "O", "O"),
-        arrayOf("X", "O", "X")
-    )
-    val matriz4 = arrayOf(
-        arrayOf("X", "O", "X","O"),
-        arrayOf("O", "O", "O","X"),
-        arrayOf("X", "O", "X","O")
-    )
-    val matriz5 = arrayOf(
-        arrayOf("", "", ""),
-        arrayOf("", "", ""),
-        arrayOf("", "", "")
-    )
 
-    println(analizarMatriz(matriz1))
-    println(analizarMatriz(matriz2))
-    println(analizarMatriz(matriz3))
-    println(analizarMatriz(matriz4))
-    println(analizarMatriz(matriz5))
+    val listadecontactos = Listadecontactos()
 
+    listadecontactos.CrearContacto(Contacto("546686109","Diego"))
+    listadecontactos.CrearContacto(Contacto("542286105","Marcos"))
+    listadecontactos.CrearContacto(Contacto("146686108","Maria"))
 
+    var option : Int
+
+    do{
+        println("^1.Añadir un contacto a la agenda: si no se pueden meter más contactos a la agenda se indicará por pantalla. No se pueden meter contactos que sean iguales." )
+        println("^2.Listar todos los contactos de la agenda." )
+        println("^3.Buscar un contacto por su nombre. Si lo encuentra muestra su teléfono y si no, se indica por pantalla." )
+        println("4.Comprobar si un contacto existe." )
+        println("^5.Eliminar un contacto. Indicar por pantalla si se eliminó o no." )
+        println("^6.Indicar el número de contactos que se pueden añadir en la agenda, es decir, indicar el número de huecos libres." )
+        println("^7.Comprobar si la agenda está llena." )
+        println("^8.Salir.\n")
+        println("escoge una opcion: ")
+
+        option = readln().toInt()
+
+        when (option) {
+            1 ->{
+                println("Introducca el nombre")
+                var nombre :String= readln()
+                println("Introducca el telefono")
+                var tlf :String = readln()
+                listadecontactos.CrearContacto(Contacto(tlf,nombre))
+            }
+            2 -> {
+                listadecontactos.ObtenerListaContactos()
+            }
+            3 -> {
+                println("Introducca el nombre")
+                var nombre:String = readln()
+                listadecontactos.ObtenerContactoPorNombre(nombre)
+            }
+            4 -> {
+                println("presione 1 para buscar por telefono y 2 para buscar por nombre (puse cualquier otra tecla para salir)")
+
+                var x:Int= readln().toInt()
+                if(x==1){
+                    println("Introducca el telefono")
+                    var tlf:String = readln()
+                    listadecontactos.ObtenerContactoPorNombreOTelefono(tlf)
+                }else if(x==2){
+                    println("Introducca el nombre")
+                    var nombre:String = readln()
+                    listadecontactos.ObtenerContactoPorNombreOTelefono(nombre)
+                }
+            }
+            5 -> {
+                println("Introducca el telefono")
+                var tlf:String = readln()
+                listadecontactos.EliminarContacto(tlf)
+            }
+            6 -> {
+                listadecontactos.EspacioRestanteNumero()
+            }
+            7 -> {
+                listadecontactos.EspacioRestante()
+            }
+            8->{println("Ha Salido")}
+        }
+
+    }while (option !=8)
 }
 
-fun analizarMatriz(matriz: Array<Array<String>>): String {
 
-    if (matriz.size != 3 || matriz[0].size != 3) {
-        return "Nulo"
-    }
-    var xC = 0
-    var oC = 0
-    for (i in matriz) {
-        for (j in i) {
-            if (j == "X") {
-                xC++
-            } else if (j == "O") {
-                oC++
-            }
-        }
-    }
-    if (xC == 0 || oC == 0) {
-        return "Nulo"
-    }
-    for (i in matriz) {
-        if (i[0] == i[1] && i[1] == i[2] && i[0] != "") {
-            return i[0]
-        }
-    }
-    for (x in 0 until 3) {
-        if (matriz[0][x] == matriz[1][x] && matriz[1][x] == matriz[2][x] && matriz[0][x] != "") {
-            return matriz[0][x]
-        }
-    }
-    if (matriz[0][0] == matriz[1][1] && matriz[1][1] == matriz[2][2] && matriz[0][0] != "") {
-        return matriz[0][0]
-    }
-    if (matriz[0][2] == matriz[1][1] && matriz[1][1] == matriz[2][0] && matriz[0][2] != "") {
-        return matriz[0][2]
-    }
-    for (i in matriz) {
-        for (j in i) {
-            if (j == "") {
-                return "Nulo"
-            }
-        }
-    }
-    return "Empate"
-}
+
+
 
 
 
